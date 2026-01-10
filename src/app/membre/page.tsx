@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase-client'
 import { User, Lock, Mail, LogOut, FileText, Calendar, Settings } from 'lucide-react'
 import Card from '@/components/Card'
@@ -18,11 +18,11 @@ export default function MembrePage() {
     const supabase = createClient()
 
     // Check if user is already logged in
-    useState(() => {
+    useEffect(() => {
         supabase.auth.getUser().then(({ data: { user } }) => {
             setUser(user)
         })
-    })
+    }, [])
 
     const handleAuth = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -223,8 +223,8 @@ export default function MembrePage() {
                             <button
                                 onClick={() => setIsLogin(true)}
                                 className={`flex-1 py-2 px-4 rounded-lg font-semibold transition-colors ${isLogin
-                                        ? 'bg-berny-navy text-white'
-                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                    ? 'bg-berny-navy text-white'
+                                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                     }`}
                             >
                                 Connexion
@@ -232,8 +232,8 @@ export default function MembrePage() {
                             <button
                                 onClick={() => setIsLogin(false)}
                                 className={`flex-1 py-2 px-4 rounded-lg font-semibold transition-colors ${!isLogin
-                                        ? 'bg-berny-navy text-white'
-                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                    ? 'bg-berny-navy text-white'
+                                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                     }`}
                             >
                                 Inscription

@@ -2,18 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
 @layer base {
   :root {
     --berny-navy: #0A2463;
     --berny-blue: #3E92CC;
   }
-  
+
   body {
     @apply bg-white text-gray-900 antialiased;
   }
-  
+
   * {
     @apply scroll-smooth;
   }
@@ -23,31 +21,31 @@
   .glass-card {
     @apply bg-white/80 backdrop-blur-md border border-gray-200/50 shadow-xl;
   }
-  
+
   .gradient-bg {
     @apply bg-gradient-to-br from-berny-navy via-berny-blue to-berny-navy-light;
   }
-  
+
   .hover-lift {
     @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl;
   }
-  
+
   .btn-primary {
     @apply bg-berny-navy hover:bg-berny-navy-light text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5;
   }
-  
+
   .btn-secondary {
     @apply bg-berny-blue hover:bg-berny-blue-dark text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5;
   }
-  
+
   .btn-outline {
     @apply border-2 border-berny-navy text-berny-navy hover:bg-berny-navy hover:text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300;
   }
-  
+
   .section-padding {
     @apply py-16 md:py-24 px-4 md:px-8;
   }
-  
+
   .container-custom {
     @apply max-w-7xl mx-auto;
   }
@@ -57,7 +55,7 @@
   .text-gradient {
     @apply bg-gradient-to-r from-berny-navy to-berny-blue bg-clip-text text-transparent;
   }
-  
+
   .animate-fade-in-up {
     animation: fadeInUp 0.6s ease-out forwards;
   }
@@ -68,6 +66,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
