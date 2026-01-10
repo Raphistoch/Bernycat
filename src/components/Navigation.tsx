@@ -1,8 +1,9 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { Menu, X, Anchor } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 
 const navLinks = [
@@ -24,9 +25,13 @@ export default function Navigation() {
                 <div className="flex items-center justify-between h-16 md:h-20">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group">
-                        <div className="bg-berny-navy p-2 rounded-lg group-hover:bg-berny-blue transition-colors duration-300">
-                            <Anchor className="w-6 h-6 text-white" />
-                        </div>
+                        <Image
+                            src="/logo.jpeg"
+                            alt="Logo Berny"
+                            width={48}
+                            height={48}
+                            className="rounded-lg group-hover:opacity-90 transition-opacity duration-300"
+                        />
                         <span className="text-2xl font-bold text-gradient">Berny</span>
                     </Link>
 
@@ -37,8 +42,8 @@ export default function Navigation() {
                                 key={link.href}
                                 href={link.href}
                                 className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${pathname === link.href
-                                        ? 'bg-berny-navy text-white'
-                                        : 'text-gray-700 hover:bg-berny-blue/10 hover:text-berny-navy'
+                                    ? 'bg-berny-navy text-white'
+                                    : 'text-gray-700 hover:bg-berny-blue/10 hover:text-berny-navy'
                                     }`}
                             >
                                 {link.label}
@@ -69,8 +74,8 @@ export default function Navigation() {
                                 href={link.href}
                                 onClick={() => setIsOpen(false)}
                                 className={`block px-4 py-3 rounded-lg font-medium transition-all duration-300 ${pathname === link.href
-                                        ? 'bg-berny-navy text-white'
-                                        : 'text-gray-700 hover:bg-berny-blue/10 hover:text-berny-navy'
+                                    ? 'bg-berny-navy text-white'
+                                    : 'text-gray-700 hover:bg-berny-blue/10 hover:text-berny-navy'
                                     }`}
                             >
                                 {link.label}

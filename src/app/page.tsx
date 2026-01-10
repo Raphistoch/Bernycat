@@ -68,7 +68,7 @@ export default function HomePage() {
             <section className="relative h-[600px] md:h-[700px] overflow-hidden">
                 <div className="absolute inset-0">
                     <Image
-                        src="/hero-berny.png"
+                        src="/hero.jpg"
                         alt="Dériveur Berny sur l'eau"
                         fill
                         className="object-cover"
