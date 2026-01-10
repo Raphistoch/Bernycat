@@ -8,38 +8,38 @@ const technicalSpecs = [
     {
         icon: Ruler,
         label: 'Longueur',
-        value: '4.20 m',
+        value: '4.88 m',
         description: 'Longueur hors-tout',
     },
     {
         icon: Ruler,
         label: 'Largeur',
-        value: '1.65 m',
-        description: 'Largeur maximale',
+        value: '1.95 m',
+        description: 'Bau maximum',
     },
     {
         icon: Weight,
         label: 'Poids',
-        value: '95 kg',
-        description: 'Poids à vide',
+        value: '250 kg',
+        description: 'Poids mini avec gréement',
     },
     {
         icon: Wind,
-        label: 'Voilure',
-        value: '10.5 m²',
-        description: 'Surface de voile',
+        label: 'Gréement',
+        value: 'Cat-boat',
+        description: 'Grand-voile à corne',
     },
     {
         icon: Users,
         label: 'Équipage',
-        value: '2-3 pers.',
-        description: 'Capacité recommandée',
+        value: '1-4 pers.',
+        description: 'Capacité réglementaire',
     },
     {
         icon: Waves,
         label: 'Tirant d\'eau',
-        value: '0.85 m',
-        description: 'Avec dérive',
+        value: '0.30-1.00 m',
+        description: 'Dérive haute/basse',
     },
 ]
 
@@ -57,7 +57,7 @@ const features = [
     {
         icon: Wind,
         title: 'Polyvalent',
-        description: 'Idéal pour la balade comme pour la régate',
+        description: 'Navigation en plan d\'eau protégé et régate monotype',
     },
 ]
 
