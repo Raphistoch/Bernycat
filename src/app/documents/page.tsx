@@ -5,10 +5,19 @@ import Button from '@/components/Button'
 const documents = [
     {
         icon: BookOpen,
-        title: 'Manuel Technique',
-        description: 'Guide complet d\'utilisation et de navigation du Berny',
-        size: '2.4 MB',
+        title: 'Manuel du propriétaire Berny Cat',
+        description: 'Guide complet d\'utilisation et de navigation du Berny Cat',
+        size: '285 KB',
         format: 'PDF',
+        file: '/Manuel du propriétaire Berny Cat.pdf',
+    },
+    {
+        icon: Scale,
+        title: 'Règles de Classe Berny Cat',
+        description: 'Règlement officiel de la classe Berny Cat v1.2',
+        size: '4.9 MB',
+        format: 'DOCX',
+        file: '/Regles_Classe_Berny_Cat_v1.2.docx',
     },
     {
         icon: Ship,
@@ -16,13 +25,7 @@ const documents = [
         description: 'Plans détaillés et spécifications techniques complètes',
         size: '5.8 MB',
         format: 'PDF',
-    },
-    {
-        icon: Scale,
-        title: 'Règlement de Classe',
-        description: 'Règlement officiel de la classe Berny pour les régates',
-        size: '1.2 MB',
-        format: 'PDF',
+        file: null,
     },
     {
         icon: Wrench,
@@ -30,6 +33,7 @@ const documents = [
         description: 'Conseils et procédures pour l\'entretien de votre Berny',
         size: '3.1 MB',
         format: 'PDF',
+        file: null,
     },
 ]
 
@@ -73,10 +77,19 @@ export default function DocumentsPage() {
                                         </div>
                                     </div>
                                 </div>
-                                <Button variant="outline" className="w-full">
-                                    <Download className="w-4 h-4 inline mr-2" />
-                                    Télécharger
-                                </Button>
+                                {doc.file ? (
+                                    <a href={doc.file} download>
+                                        <Button variant="outline" className="w-full">
+                                            <Download className="w-4 h-4 inline mr-2" />
+                                            Télécharger
+                                        </Button>
+                                    </a>
+                                ) : (
+                                    <Button variant="outline" className="w-full" disabled>
+                                        <Download className="w-4 h-4 inline mr-2" />
+                                        Bientôt disponible
+                                    </Button>
+                                )}
                             </Card>
                         ))}
                     </div>

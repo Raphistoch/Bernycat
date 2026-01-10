@@ -15,8 +15,11 @@ export default function Footer() {
                             <span className="text-2xl font-bold">Berny</span>
                         </div>
                         <p className="text-gray-300 max-w-md">
-                            Le dériveur Berny - Tradition et performance depuis des générations.
-                            Rejoignez notre communauté de passionnés de voile.
+                            Dériveur en stratifié polyester, homologué catégorie C.
+                            Conçu pour 4 adultes, tradition et performance depuis des générations.
+                        </p>
+                        <p className="text-gray-300 text-sm mt-2">
+                            34 bis route de Loc-amand, 29940 La Forêt-Fouesnant
                         </p>
                     </div>
 
@@ -51,11 +54,18 @@ export default function Footer() {
                     <div>
                         <h3 className="font-bold text-lg mb-4">Contact</h3>
                         <ul className="space-y-3">
-                            <li className="flex items-center gap-2 text-gray-300">
-                                <Mail className="w-4 h-4" />
-                                <a href="mailto:contact@berny.fr" className="hover:text-white transition-colors">
-                                    contact@berny.fr
+                            <li className="text-gray-300 text-sm">
+                                <a href="https://www.berny-cat.fr/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                                    www.berny-cat.fr
                                 </a>
+                            </li>
+                            <li className="text-gray-300 text-sm">
+                                <a href="https://www.dinghy12.fr/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                                    www.dinghy12.fr
+                                </a>
+                            </li>
+                            <li className="text-gray-300 text-sm">
+                                Tél: 06 83 04 29 20
                             </li>
                             <li className="flex items-center gap-4 mt-4">
                                 <a
