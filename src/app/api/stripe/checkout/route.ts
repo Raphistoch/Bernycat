@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe, STRIPE_CONFIG } from '@/lib/stripe'
-import { createClient } from '@/lib/supabase'
-import { createPendingMembership } from '@/lib/membership'
+import { createClient, createServiceClient } from '@/lib/supabase'
+import { createClient as createBrowserClient } from '@supabase/supabase-js'
 
 export async function POST(req: NextRequest) {
     try {
-        // Get authenticated user
+        // Get authenticated user with regular client
         const supabase = await createClient()
         const { data: { user }, error: authError } = await supabase.auth.getUser()
 
@@ -16,13 +16,20 @@ export async function POST(req: NextRequest) {
             )
         }
 
-        // Create pending membership in database
-        const membership = await createPendingMembership(
-            user.id,
-            STRIPE_CONFIG.membershipPrice / 100 // Convert cents to euros
-        )
+        // Create pending membership in database using service client (bypasses RLS)
+        const serviceSupabase = await createServiceClient()
+        const { data: membership, error: membershipError } = await serviceSupabase
+            .from('memberships')
+            .insert({
+                user_id: user.id,
+                status: 'pending',
+                amount: STRIPE_CONFIG.membershipPrice / 100,
+            })
+            .select()
+            .single()
 
-        if (!membership) {
+        if (membershipError || !membership) {
+            console.error('Error creating membership:', membershipError)
             return NextResponse.json(
                 { error: 'Erreur lors de la création de l\'adhésion' },
                 { status: 500 }
