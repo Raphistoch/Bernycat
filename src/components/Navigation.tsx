@@ -32,7 +32,7 @@ export default function Navigation() {
                             height={48}
                             className="rounded-lg group-hover:opacity-90 transition-opacity duration-300"
                         />
-                        <span className="text-2xl font-bold text-gradient">Berny</span>
+                        <span className="text-2xl font-bold text-berny-navy">Berny Cat</span>
                     </Link>
 
                     {/* Desktop Navigation */}

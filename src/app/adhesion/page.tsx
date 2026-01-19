@@ -15,11 +15,6 @@ const benefits = [
         description: 'Rejoignez une communauté active et partagez votre passion de la voile',
     },
     {
-        icon: FileText,
-        title: 'Documentation exclusive',
-        description: 'Accédez à tous les documents techniques, plans et guides d\'entretien',
-    },
-    {
         icon: Award,
         title: 'Tarifs préférentiels',
         description: 'Bénéficiez de réductions chez nos partenaires et sur les événements',
@@ -28,11 +23,6 @@ const benefits = [
         icon: Mail,
         title: 'Newsletter mensuelle',
         description: 'Restez informé des actualités, conseils et bons plans',
-    },
-    {
-        icon: CreditCard,
-        title: 'Assurance groupe',
-        description: 'Profitez de tarifs avantageux sur l\'assurance de votre Berny',
     },
 ]
 

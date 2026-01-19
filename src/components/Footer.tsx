@@ -55,17 +55,7 @@ export default function Footer() {
                         <h3 className="font-bold text-lg mb-4">Contact</h3>
                         <ul className="space-y-3">
                             <li className="text-gray-300 text-sm">
-                                <a href="https://www.berny-cat.fr/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                                    www.berny-cat.fr
-                                </a>
-                            </li>
-                            <li className="text-gray-300 text-sm">
-                                <a href="https://www.dinghy12.fr/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                                    www.dinghy12.fr
-                                </a>
-                            </li>
-                            <li className="text-gray-300 text-sm">
-                                Tél: 06 06 06 06 60
+                                Tél: XX XX XX XX XX
                             </li>
                             <li className="flex items-center gap-4 mt-4">
                                 <a

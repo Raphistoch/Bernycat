@@ -16,8 +16,8 @@ const news = [
     },
     {
         date: '20 Décembre 2025',
-        title: 'Championnat d\'hiver',
-        excerpt: 'Félicitations aux participants du championnat d\'hiver ! Résultats complets disponibles.',
+        title: 'Conseils de gabier #1',
+        excerpt: 'Découvrez nos astuces pour optimiser votre navigation sur Berny : réglages de voiles et manœuvres.',
     },
 ]
 
@@ -139,7 +139,7 @@ export default function CommunautePage() {
                             Accédez à tous les événements, bénéficiez de tarifs préférentiels et rejoignez une communauté passionnée
                         </p>
                         <Link href="/adhesion">
-                            <Button variant="secondary" className="bg-white text-berny-navy hover:bg-gray-100">
+                            <Button variant="primary" className="bg-berny-blue text-white hover:bg-berny-blue/90">
                                 Découvrir les avantages
                             </Button>
                         </Link>

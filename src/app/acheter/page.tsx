@@ -1,5 +1,6 @@
 import { ShoppingBag, Ship, Euro, Calendar, Mail } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import Card from '@/components/Card'
 import Button from '@/components/Button'
 
@@ -145,6 +146,14 @@ export default function AcheterPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {usedBoats.map((boat, index) => (
                             <Card key={index}>
+                                <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden">
+                                    <Image
+                                        src="/boat-stock.png"
+                                        alt={`Berny ${boat.year}`}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
                                 <div className="flex items-center justify-between mb-4">
                                     <span className="bg-berny-blue/10 text-berny-blue px-3 py-1 rounded-full text-sm font-semibold">
                                         {boat.year}
