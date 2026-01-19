@@ -1,148 +1,131 @@
-# Guide de Configuration Stripe
+# 🚀 Guide Rapide : Configuration Stripe
 
-## Étape 1 : Créer un compte Stripe
+## ✅ Ce qui est déjà fait
 
-1. Allez sur [stripe.com](https://stripe.com)
-2. Cliquez sur **"Start now"** ou **"Sign in"**
-3. Créez votre compte (email + mot de passe)
-4. Activez le **mode test** (toggle en haut à droite)
+- ✅ Code Stripe implémenté
+- ✅ Tables Supabase créées (à exécuter)
+- ✅ Page membre avec accès conditionnel
+- ✅ Composant statut adhésion
 
-## Étape 2 : Créer un produit
+## 📋 Étapes à suivre
 
-1. Dans le dashboard Stripe, allez dans **Products**
-2. Cliquez sur **"Add product"**
-3. Remplissez :
-   - **Name** : `Adhésion Annuelle Berny Cat`
-   - **Description** : `Accès complet à l'espace membre pour 1 an`
-   - **Pricing** : 
-     - One-time payment
-     - Prix : `50.00 EUR` (ou le montant souhaité)
-4. Cliquez sur **"Save product"**
+### 1. Exécuter le script SQL dans Supabase
 
-## Étape 3 : Récupérer les clés API
+1. Allez sur [supabase.com/dashboard](https://supabase.com/dashboard)
+2. Sélectionnez votre projet
+3. **SQL Editor** → **New query**
+4. Copiez tout le contenu de `supabase/schema.sql`
+5. Collez et cliquez sur **Run**
+6. Vérifiez dans **Table Editor** : vous devez voir `profiles` et `memberships`
 
-1. Allez dans **Developers** → **API keys**
-2. Vous verrez deux clés :
-   - **Publishable key** (commence par `pk_test_...`)
-   - **Secret key** (commence par `sk_test_...`, cliquez sur "Reveal")
-3. Copiez ces deux clés
+### 2. Configurer Stripe
 
-## Étape 4 : Configurer .env.local
+#### A. Récupérer les clés API
+
+1. Allez sur [dashboard.stripe.com](https://dashboard.stripe.com)
+2. Activez le **mode test** (toggle en haut à droite)
+3. **Developers** → **API keys**
+4. Copiez :
+   - **Publishable key** : `pk_test_...`
+   - **Secret key** : `sk_test_...` (cliquez sur "Reveal")
+
+#### B. Mettre à jour `.env.local`
 
 Remplacez les placeholders dans `.env.local` :
 
-```env
+```bash
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_VOTRE_CLE_ICI
 STRIPE_SECRET_KEY=sk_test_VOTRE_CLE_ICI
 ```
 
-## Étape 5 : Configurer le webhook (après déploiement)
+#### C. Configurer le webhook (local)
 
-### En local (pour tester)
+Pour tester en local, installez Stripe CLI :
 
-1. Installez Stripe CLI :
-   ```bash
-   brew install stripe/stripe-cli/stripe
-   ```
+```bash
+brew install stripe/stripe-cli/stripe
+stripe login
+stripe listen --forward-to localhost:3000/api/webhooks/stripe
+```
 
-2. Connectez-vous :
-   ```bash
-   stripe login
-   ```
+Copiez le **webhook signing secret** (`whsec_...`) et ajoutez-le dans `.env.local` :
 
-3. Lancez le webhook en local :
-   ```bash
-   stripe listen --forward-to localhost:3000/api/webhooks/stripe
-   ```
+```bash
+STRIPE_WEBHOOK_SECRET=whsec_VOTRE_SECRET_ICI
+```
 
-4. Copiez le **webhook signing secret** (commence par `whsec_...`)
-5. Ajoutez-le dans `.env.local` :
-   ```env
-   STRIPE_WEBHOOK_SECRET=whsec_VOTRE_SECRET_ICI
-   ```
+### 3. Ajuster le prix (optionnel)
 
-### En production (Vercel)
+Par défaut : **50€**
 
-1. Dans Stripe dashboard, allez dans **Developers** → **Webhooks**
-2. Cliquez sur **"Add endpoint"**
-3. URL : `https://bernycat.vercel.app/api/webhooks/stripe`
-4. Sélectionnez les événements :
-   - `checkout.session.completed`
-   - `customer.subscription.deleted`
-5. Cliquez sur **"Add endpoint"**
-6. Copiez le **Signing secret**
-7. Ajoutez-le dans Vercel :
-   - **Settings** → **Environment Variables**
-   - Nom : `STRIPE_WEBHOOK_SECRET`
-   - Valeur : `whsec_...`
+Pour changer, éditez `src/lib/stripe.ts` :
 
-## Étape 6 : Tester le paiement
+```typescript
+membershipPrice: 5000, // 50.00 EUR en centimes
+```
 
-### Cartes de test Stripe
+- Pour 30€ : `3000`
+- Pour 75€ : `7500`
+
+### 4. Démarrer le serveur
+
+```bash
+npm run dev
+```
+
+Dans un autre terminal :
+
+```bash
+stripe listen --forward-to localhost:3000/api/webhooks/stripe
+```
+
+### 5. Tester le paiement
+
+1. Allez sur `http://localhost:3000/membre`
+2. Créez un compte ou connectez-vous
+3. Cliquez sur **"Adhérer maintenant"**
+4. Utilisez la carte test : `4242 4242 4242 4242`
+   - Expiration : n'importe quelle date future (ex: 12/34)
+   - CVC : n'importe quel 3 chiffres (ex: 123)
+5. Complétez le paiement
+6. Vous devriez être redirigé avec accès complet au dashboard
+
+### 6. Vérifier dans Supabase
+
+1. **Table Editor** → `memberships`
+2. Vérifiez qu'une ligne existe avec :
+   - `status` : `active`
+   - `end_date` : dans 1 an
+
+## 🎯 Déploiement Production
+
+### Vercel
+
+1. **Environment Variables** → Ajoutez :
+   - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
+   - `STRIPE_SECRET_KEY`
+   - `STRIPE_WEBHOOK_SECRET`
+   - `NEXT_PUBLIC_APP_URL=https://bernycat.vercel.app`
+
+2. **Stripe Webhook** :
+   - **Developers** → **Webhooks** → **Add endpoint**
+   - URL : `https://bernycat.vercel.app/api/webhooks/stripe`
+   - Événements : `checkout.session.completed`
+   - Copiez le signing secret et ajoutez-le dans Vercel
+
+## ❓ Problèmes courants
+
+**"STRIPE_SECRET_KEY is not defined"**
+→ Redémarrez le serveur après avoir modifié `.env.local`
+
+**Webhook ne fonctionne pas**
+→ Vérifiez que `stripe listen` tourne en parallèle
+
+**Paiement réussi mais pas d'accès**
+→ Vérifiez les logs du webhook dans le terminal Stripe CLI
+
+## 📊 Cartes de test Stripe
 
 - **Succès** : `4242 4242 4242 4242`
 - **Échec** : `4000 0000 0000 0002`
 - **3D Secure** : `4000 0027 6000 3184`
-
-Pour toutes les cartes :
-- **Expiration** : n'importe quelle date future (ex: 12/34)
-- **CVC** : n'importe quel 3 chiffres (ex: 123)
-- **Code postal** : n'importe quel code
-
-### Scénario de test
-
-1. Créez un compte sur votre site
-2. Allez dans l'espace membre
-3. Cliquez sur **"Adhérer maintenant"**
-4. Vous serez redirigé vers Stripe Checkout
-5. Utilisez la carte `4242 4242 4242 4242`
-6. Complétez le paiement
-7. Vous serez redirigé vers votre dashboard
-8. Vérifiez que vous avez maintenant accès à tout le contenu
-
-## Étape 7 : Vérifier dans Supabase
-
-1. Allez dans votre dashboard Supabase
-2. **Table Editor** → `memberships`
-3. Vérifiez qu'une nouvelle ligne a été créée avec :
-   - `status` : `active`
-   - `end_date` : dans 1 an
-   - `helloasso_payment_id` : ID du paiement Stripe
-
-## Ajuster le prix
-
-Pour changer le montant de l'adhésion :
-
-1. Ouvrez `src/lib/stripe.ts`
-2. Modifiez `membershipPrice` :
-   ```typescript
-   membershipPrice: 5000, // 50.00 EUR en centimes
-   ```
-   - Pour 30€ : `3000`
-   - Pour 75€ : `7500`
-   - etc.
-
-## Problèmes courants
-
-**Erreur : "STRIPE_SECRET_KEY is not defined"**
-- Vérifiez que `.env.local` contient bien la clé
-- Redémarrez le serveur (`npm run dev`)
-
-**Webhook ne fonctionne pas**
-- Vérifiez que `STRIPE_WEBHOOK_SECRET` est configuré
-- En local, assurez-vous que `stripe listen` tourne
-- En production, vérifiez l'URL du webhook dans Stripe
-
-**Paiement réussi mais adhésion pas activée**
-- Vérifiez les logs du webhook dans Stripe dashboard
-- Vérifiez que les tables Supabase sont créées
-- Vérifiez les logs de votre application
-
-## Passer en production
-
-1. Dans Stripe, désactivez le mode test
-2. Créez de nouvelles clés API (production)
-3. Mettez à jour les variables d'environnement dans Vercel
-4. Configurez le webhook en production
-5. Testez avec une vraie carte (petit montant)
-6. Annulez immédiatement pour éviter les frais
