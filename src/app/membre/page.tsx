@@ -9,6 +9,9 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import MembershipStatus from '@/components/MembershipStatus'
 import { getActiveMembership, getUserProfile, type Membership, type Profile } from '@/lib/membership'
 
+// Disable static generation for this page
+export const dynamic = 'force-dynamic'
+
 export default function MembrePage() {
     const [isLogin, setIsLogin] = useState(true)
     const [email, setEmail] = useState('')
@@ -154,8 +157,8 @@ export default function MembrePage() {
                                 <button
                                     onClick={() => setIsLogin(true)}
                                     className={`flex-1 py-2 px-4 rounded-lg font-semibold transition-colors ${isLogin
-                                            ? 'bg-berny-navy text-white'
-                                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                        ? 'bg-berny-navy text-white'
+                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                         }`}
                                 >
                                     Connexion
@@ -163,8 +166,8 @@ export default function MembrePage() {
                                 <button
                                     onClick={() => setIsLogin(false)}
                                     className={`flex-1 py-2 px-4 rounded-lg font-semibold transition-colors ${!isLogin
-                                            ? 'bg-berny-navy text-white'
-                                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                        ? 'bg-berny-navy text-white'
+                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                         }`}
                                 >
                                     Inscription
