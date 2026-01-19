@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase'
+import { createClient } from '@/lib/supabase-client'
 
 export interface Membership {
     id: string
@@ -28,7 +28,8 @@ export interface Profile {
  * Récupère l'adhésion active d'un utilisateur
  */
 export async function getActiveMembership(userId: string): Promise<Membership | null> {
-    const supabase = await createClient()
+    const supabase = createClient()
+
 
     const { data, error } = await supabase
         .from('memberships')
@@ -58,7 +59,7 @@ export async function hasActiveMembership(userId: string): Promise<boolean> {
  * Récupère le profil d'un utilisateur
  */
 export async function getUserProfile(userId: string): Promise<Profile | null> {
-    const supabase = await createClient()
+    const supabase = createClient()
 
     const { data, error } = await supabase
         .from('profiles')
@@ -81,7 +82,7 @@ export async function updateUserProfile(
     userId: string,
     updates: Partial<Omit<Profile, 'id' | 'created_at' | 'updated_at'>>
 ): Promise<Profile | null> {
-    const supabase = await createClient()
+    const supabase = createClient()
 
     const { data, error } = await supabase
         .from('profiles')
@@ -105,7 +106,7 @@ export async function createPendingMembership(
     userId: string,
     amount: number
 ): Promise<Membership | null> {
-    const supabase = await createClient()
+    const supabase = createClient()
 
     const { data, error } = await supabase
         .from('memberships')
@@ -133,7 +134,7 @@ export async function activateMembership(
     stripePaymentId: string,
     stripeOrderId: string
 ): Promise<Membership | null> {
-    const supabase = await createClient()
+    const supabase = createClient()
 
     const startDate = new Date()
     const endDate = new Date()
@@ -164,7 +165,7 @@ export async function activateMembership(
  * Récupère toutes les adhésions d'un utilisateur
  */
 export async function getUserMemberships(userId: string): Promise<Membership[]> {
-    const supabase = await createClient()
+    const supabase = createClient()
 
     const { data, error } = await supabase
         .from('memberships')
