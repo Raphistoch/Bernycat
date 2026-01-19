@@ -19,7 +19,7 @@ export default function Footer() {
                             Conçu pour 4 adultes, tradition et performance depuis des générations.
                         </p>
                         <p className="text-gray-300 text-sm mt-2">
-                            34 bis route de Loc-amand, 29940 La Forêt-Fouesnant
+                            XX rue de XX, Berny-sur-Mer
                         </p>
                     </div>
 
@@ -65,7 +65,7 @@ export default function Footer() {
                                 </a>
                             </li>
                             <li className="text-gray-300 text-sm">
-                                Tél: 06 83 04 29 20
+                                Tél: 06 06 06 06 60
                             </li>
                             <li className="flex items-center gap-4 mt-4">
                                 <a

@@ -59,13 +59,16 @@ export default function AcheterPage() {
                             </p>
                             <div className="bg-berny-blue/10 rounded-lg p-6 mb-6">
                                 <p className="text-sm text-gray-600 mb-2">À partir de</p>
-                                <p className="text-4xl font-bold text-berny-navy mb-2">12 500 €</p>
-                                <p className="text-sm text-gray-600">Livraison 8-12 semaines</p>
+                                <p className="text-4xl font-bold text-berny-navy mb-2">19 000 € (TBD)</p>
                             </div>
                             <ul className="text-left space-y-3 mb-8">
                                 <li className="flex items-start gap-2">
                                     <span className="text-berny-blue mt-1">✓</span>
                                     <span className="text-gray-700">Garantie constructeur 2 ans</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-berny-blue mt-1">✓</span>
+                                    <span className="text-gray-700">Fabrication française</span>
                                 </li>
                                 <li className="flex items-start gap-2">
                                     <span className="text-berny-blue mt-1">✓</span>
@@ -77,7 +80,11 @@ export default function AcheterPage() {
                                 </li>
                                 <li className="flex items-start gap-2">
                                     <span className="text-berny-blue mt-1">✓</span>
-                                    <span className="text-gray-700">Financement disponible</span>
+                                    <span className="text-gray-700">Offre de maintenance et hivernage</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-berny-blue mt-1">✓</span>
+                                    <span className="text-gray-700">Possibilité d'essai</span>
                                 </li>
                             </ul>
                             <a href="mailto:vente@berny.fr">
@@ -116,10 +123,6 @@ export default function AcheterPage() {
                                 <li className="flex items-start gap-2">
                                     <span className="text-berny-blue mt-1">✓</span>
                                     <span className="text-gray-700">Assistance à l'achat</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                    <span className="text-berny-blue mt-1">✓</span>
-                                    <span className="text-gray-700">Possibilité d'essai</span>
                                 </li>
                             </ul>
                             <a href="#occasions">
