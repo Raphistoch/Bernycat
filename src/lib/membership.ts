@@ -30,14 +30,13 @@ export interface Profile {
 export async function getActiveMembership(userId: string): Promise<Membership | null> {
     const supabase = createClient()
 
-
     const { data, error } = await supabase
         .from('memberships')
         .select('*')
         .eq('user_id', userId)
         .eq('status', 'active')
         .gt('end_date', new Date().toISOString())
-        .single()
+        .maybeSingle()
 
     if (error) {
         console.error('Error fetching membership:', error)
@@ -46,6 +45,7 @@ export async function getActiveMembership(userId: string): Promise<Membership | 
 
     return data
 }
+
 
 /**
  * Vérifie si un utilisateur a une adhésion active
@@ -65,7 +65,7 @@ export async function getUserProfile(userId: string): Promise<Profile | null> {
         .from('profiles')
         .select('*')
         .eq('id', userId)
-        .single()
+        .maybeSingle()
 
     if (error) {
         console.error('Error fetching profile:', error)
@@ -74,6 +74,7 @@ export async function getUserProfile(userId: string): Promise<Profile | null> {
 
     return data
 }
+
 
 /**
  * Met à jour le profil d'un utilisateur
