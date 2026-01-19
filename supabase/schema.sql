@@ -61,11 +61,13 @@ CREATE TABLE IF NOT EXISTS memberships (
   helloasso_order_id TEXT,
   amount DECIMAL(10, 2),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  
-  -- Contrainte : un seul adhésion active par utilisateur
-  UNIQUE(user_id, status) WHERE status = 'active'
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
+
+-- Contrainte unique : un seul adhésion active par utilisateur
+CREATE UNIQUE INDEX IF NOT EXISTS idx_unique_active_membership 
+  ON memberships(user_id) 
+  WHERE status = 'active';
 
 -- Index pour recherche rapide par user_id
 CREATE INDEX IF NOT EXISTS idx_memberships_user_id ON memberships(user_id);
