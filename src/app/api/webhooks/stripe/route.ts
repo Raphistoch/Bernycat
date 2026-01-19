@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { headers } from 'next/headers'
 import Stripe from 'stripe'
 import { stripe } from '@/lib/stripe'
-import { createClient } from '@/lib/supabase'
+import { createServiceClient } from '@/lib/supabase'
 
 export async function POST(req: NextRequest) {
     const body = await req.text()
@@ -48,8 +48,8 @@ export async function POST(req: NextRequest) {
                     break
                 }
 
-                // Update membership in database
-                const supabase = await createClient()
+                // Update membership in database using service client (bypasses RLS)
+                const supabase = await createServiceClient()
 
                 const startDate = new Date()
                 const endDate = new Date()
@@ -74,6 +74,7 @@ export async function POST(req: NextRequest) {
 
                 break
             }
+
 
             case 'customer.subscription.deleted': {
                 // Handle subscription cancellation if needed
